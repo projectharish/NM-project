@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Automation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-robot"></i> Employee Automation</h1>
+                <p class="subtitle"><i class="fas fa-chart-line"></i> Track, Manage & Analyze Your Team</p>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</button>
+            <button class="tab-btn" data-tab="add-employee"><i class="fas fa-user-plus"></i> Add Employee</button>
+            <button class="tab-btn" data-tab="employee-list"><i class="fas fa-users"></i> Employee List</button>
+            <button class="tab-btn" data-tab="analytics"><i class="fas fa-chart-pie"></i> Analytics</button>
+        </nav>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="tab-content active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon total"><i class="fas fa-users"></i></div>
+                    <div class="stat-info">
+                        <h3>Total Employees</h3>
+                        <p id="total-employees">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon salary"><i class="fas fa-rupee-sign"></i></div>
+                    <div class="stat-info">
+                        <h3>Total Salary</h3>
+                        <p id="total-salary">₹0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon departments"><i class="fas fa-building"></i></div>
+                    <div class="stat-info">
+                        <h3>Departments</h3>
+                        <p id="total-departments">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon average"><i class="fas fa-chart-bar"></i></div>
+                    <div class="stat-info">
+                        <h3>Avg Salary</h3>
+                        <p id="avg-salary">₹0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Department Distribution</h3>
+                    <canvas id="departmentChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Salary by Department</h3>
+                    <canvas id="salaryChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Employee Roles</h3>
+                    <canvas id="roleChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Work Hours Distribution</h3>
+                    <canvas id="hoursChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Add Employee Section -->
+        <section id="add-employee" class="tab-content">
+            <div class="form-container">
+                <h2><i class="fas fa-user-plus"></i> Add New Employee</h2>
+                <form id="employee-form" class="employee-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName"><i class="fas fa-user"></i> First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName"><i class="fas fa-user"></i> Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email"><i class="fas fa-envelope"></i> Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone"><i class="fas fa-phone"></i> Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required pattern="[0-9]{10,15}">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="address"><i class="fas fa-map-marker-alt"></i> Address *</label>
+                            <textarea id="address" name="address" rows="3" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="position"><i class="fas fa-briefcase"></i> Position *</label>
+                            <input type="text" id="position" name="position" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="role"><i class="fas fa-id-badge"></i> Role *</label>
+                            <select id="role" name="role" required>
+                                <option value="">Select Role</option>
+                                <option value="Manager">Manager</option>
+                                <option value="Developer">Developer</option>
+                                <option value="Designer">Designer</option>
+                                <option value="HR">HR</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Support">Support</option>
+                                <option value="Intern">Intern</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="department"><i class="fas fa-building"></i> Department *</label>
+                            <select id="department" name="department" required>
+                                <option value="">Select Department</option>
+                                <option value="IT">IT</option>
+                                <option value="HR">HR</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Operations">Operations</option>
+                                <option value="Customer Support">Customer Support</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="salary"><i class="fas fa-rupee-sign"></i> Annual Salary (Inr) *</label>
+                            <input type="number" id="salary" name="salary" min="0" step="1000" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="workHours"><i class="fas fa-clock"></i> Work Hours per Week *</label>
+                            <input type="number" id="workHours" name="workHours" min="1" max="60" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate"><i class="fas fa-calendar-alt"></i> Start Date *</label>
+                            <input type="date" id="startDate" name="startDate" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="skills"><i class="fas fa-tools"></i> Skills (comma separated)</label>
+                            <input type="text" id="skills" name="skills" placeholder="e.g., JavaScript, Python, Leadership">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full-width">
+                            <label for="performance"><i class="fas fa-star"></i> Performance Rating (1-10)</label>
+                            <input type="range" id="performance" name="performance" min="1" max="10" value="5" oninput="this.nextElementSibling.value = this.value">
+                            <output>5</output>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary"><i class="fas fa-plus-circle"></i> Add Employee</button>
+                        <button type="reset" class="btn-secondary"><i class="fas fa-eraser"></i> Clear Form</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Employee List Section -->
+        <section id="employee-list" class="tab-content">
+            <div class="list-header">
+                <h2><i class="fas fa-users"></i> All Employees</h2>
+                <div class="search-filter">
+                    <input type="text" id="search-input" placeholder="Search employees...">
+                    <select id="filter-department">
+                        <option value="">All Departments</option>
+                        <option value="IT">IT</option>
+                        <option value="HR">HR</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Operations">Operations</option>
+                        <option value="Customer Support">Customer Support</option>
+                    </select>
+                </div>
+            </div>
+            <div class="employee-grid" id="employee-grid">
+                <!-- Employee cards will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics" class="tab-content">
+            <div class="analytics-header">
+                <h2><i class="fas fa-chart-line"></i> Performance Analytics</h2>
+            </div>
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <h3><i class="fas fa-trophy"></i> Top Performers</h3>
+                    <div id="top-performers"></div>
+                </div>
+                <div class="analytics-card">
+                    <h3><i class="fas fa-chart-pie"></i> Salary Distribution</h3>
+                    <canvas id="salaryDistributionChart"></canvas>
+                </div>
+                <div class="analytics-card">
+                    <h3><i class="fas fa-graduation-cap"></i> Experience Level</h3>
+                    <canvas id="experienceChart"></canvas>
+                </div>
+                <div class="analytics-card">
+                    <h3><i class="fas fa-chart-scatter"></i> Performance vs Salary</h3>
+                    <canvas id="performanceSalaryChart"></canvas>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
